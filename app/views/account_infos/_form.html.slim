@@ -1,0 +1,62 @@
+= form_for @account_info, html: { class: '' } do |f|
+  fieldset
+    legend Payroll Breakdown
+    br
+    .row
+      .large-6.columns
+        = f.label :employee_id, 'EMPLOYEE NAME'
+        = f.select :employee_id, Employee.all.map{ |e| ["#{e.first_name} #{e.last_name}", e.id] }, {include_blank: true}, class: "designation"
+        = f.hidden_field :payroll_record_id, value: params[:payroll_record_id]
+    .row
+      .large-3.columns
+        = f.label :overtime_pay, 'OVERTIME ADJUSTMENT'
+        = f.text_field :overtime_pay, class: 'large-3.columns'
+      .large-3.columns
+        = f.label :late, 'LATE'
+        = f.text_field :late, class: 'large-3.columns'
+      .large-3.columns
+        = f.label :gross_pay, 'GROSS PAY'
+        = f.text_field :gross_pay, class: 'large-3.columns'
+      .large-3.columns
+        = f.label :pagibig_wheld, 'PAG-IBIG WITHHELD'
+        = f.text_field :pagibig_wheld, class: 'large-3.columns'
+    .row
+      .large-3.columns
+        = f.label :gross_pay_after_hdmf, 'GROSS PAY AFTER HDMF'
+        = f.text_field :gross_pay_after_hdmf, class: 'large-3.columns'
+      .large-3.columns
+        = f.label :tax_wheld, 'TAX WITHHELD'
+        = f.text_field :tax_wheld, class: 'large-3.columns'
+      .large-3.columns
+        = f.label :pag_ibig_loan, 'PAG_IBIG LOAN'
+        = f.text_field :pag_ibig_loan, class: 'large-3.columns'
+      .large-3.columns
+        = f.label :housing_loan_sp_case, 'HOUSING LOAN SPECIAL CASE'
+        = f.text_field :housing_loan_sp_case, class: 'large-3.columns'
+    .row
+      .large-4.columns
+        = f.label :advances, 'ADVANCES'
+        = f.text_field :advances, class: 'large-3.columns'
+      .large-4.columns
+        = f.label :company_loan, 'COMPANY LOAN'
+        = f.text_field :company_loan, class: 'large-3.columns'
+      .large-4.columns
+        = f.label :total_deduction, 'TOTAL DEDUCTION'
+        = f.text_field :total_deduction, class: 'large-3.columns'
+    .row
+      .large-12.columns
+        = f.submit "Save", class: 'button round right tiny'
+
+javascript:
+  $('.fdatepicker').fdatepicker({ dateFormat: 'mm-dd-yyyy' });
+  $('#employee_monthly_basic').blur(function() {
+    var half_amount = ($('#employee_monthly_basic').val() / 2);
+    $('#employee_semi_month_rate').val(half_amount);
+  });
+/ css:
+/   .container{
+/     min-height: 100%;
+/   }
+/   .show_off{
+/     display:none;
+/   }

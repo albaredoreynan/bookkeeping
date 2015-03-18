@@ -14,7 +14,10 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require foundation
+//= require foundation-datepicker
+//= require number_format.js
 //= require_tree .
 $(function() {
   $(document).foundation();
+  $(".monetary_field").number(true, 2);
 });

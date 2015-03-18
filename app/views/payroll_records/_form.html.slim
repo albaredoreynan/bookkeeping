@@ -1,0 +1,23 @@
+= form_for @payroll_record, html: { class: '' } do |f|
+  fieldset
+    legend Create Payroll Period  
+    br
+    .row
+      .large-5.columns
+        = f.label :payroll_date_start, 'Payroll Period Starts'
+        = f.text_field :payroll_date_start, class: 'large-3.columns fdatepicker', value: @payroll_record.payroll_date_start.present? ? @payroll_record.payroll_date_start.strftime("%m/%d/%Y") : ''
+      .large-5.columns
+        = f.label :payroll_date_end, 'Payroll Period End'
+        = f.text_field :payroll_date_end, class: 'large-3.columns fdatepicker', value: @payroll_record.payroll_date_end.present? ? @payroll_record.payroll_date_end.strftime("%m/%d/%Y") : ''
+    .row
+      .large-12.columns
+        = f.submit "Save", class: 'button round right tiny'
+javascript:
+  $('.fdatepicker').fdatepicker
+/ css:
+/   .container{
+/     min-height: 100%;
+/   }
+/   .show_off{
+/     display:none;
+/   }

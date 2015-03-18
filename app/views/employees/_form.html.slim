@@ -1,0 +1,52 @@
+= form_for @employee , html: { class: '' } do |f|
+  fieldset
+    legend Create Employee  
+    br
+    .row
+      .large-4.columns
+        = f.label :first_name, 'First Name'
+        = f.text_field :first_name, class: 'large-3.columns'
+      .large-4.columns
+        = f.label :middle_initial, 'Middle Name'
+        = f.text_field :middle_initial, class: 'large-3.columns'
+      .large-4.columns
+        = f.label :last_name, 'Last Name'
+        = f.text_field :last_name, class: 'large-3.columns'
+    .row
+      .large-4.columns
+        = f.label :position, 'Position'
+        = f.select :position, [['EMPLOYEE', 'EMPLOYEE'], ['LAWYER', 'LAWYER']], class: 'large-3.columns'
+      .large-4.columns
+        = f.label :monthly_basic, 'Monthly Basic'
+        = f.text_field :monthly_basic, class: 'large-3.columns'
+      .large-4.columns
+        = f.label :semi_month_rate, 'Semi Month Rate'
+        = f.text_field :semi_month_rate, class: 'large-3.columns'
+    .row
+      .large-6.columns
+        = f.label :address, "Address"
+        = f.text_area :address, class: 'large-6.columns', rows: 5, style:"resize: none;"
+      .large-3.columns
+        = f.label :contact_number, 'Contact Number'
+        = f.text_field :contact_number, class: 'large-3.columns'
+      .large-3.columns
+        = f.label :birthdate
+        = f.text_field :birthdate, class: 'large-3.columns fdatepicker', value: @employee.birthdate.present? ? @employee.birthdate.strftime("%m/%d/%Y") : ''
+
+    .row
+      .large-12.columns
+        = f.submit "Save", class: 'button round right tiny'
+
+javascript:
+  $('.fdatepicker').fdatepicker({ dateFormat: 'mm-dd-yyyy' });
+  $('#employee_monthly_basic').blur(function() {
+    var half_amount = ($('#employee_monthly_basic').val() / 2);
+    $('#employee_semi_month_rate').val(half_amount);
+  });
+/ css:
+/   .container{
+/     min-height: 100%;
+/   }
+/   .show_off{
+/     display:none;
+/   }

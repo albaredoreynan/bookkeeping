@@ -1,0 +1,37 @@
+br
+.large-12.columns
+  h3.panel-title Payroll Information
+  hr
+.large-12.columns
+  br
+  .large-12.columns
+    .col-sm-6
+      h4 
+    .col-sm-6
+      ul.button-group.round.tiny.right
+        li
+          = link_to 'Add Employee in Payroll List', new_account_info_path(:payroll_record_id => params[:payroll_record_id]), class: 'button tiny'
+        li  
+          = link_to 'View Payroll', view_payroll_account_infos_path(:payroll_record_id => params[:payroll_record_id]), class: 'button tiny'
+  br
+  br
+  br
+  .large-12.columns
+    table width="100%" role="grid"
+      thead
+        tr
+          th Employee Name
+          th Monthly Basic
+          th Semi Month Rate
+          th Action
+      tbody
+        - @account_infos.each do |ai|
+          tr
+            td = "#{ai.employee.first_name} #{ai.employee.middle_initial} #{ai.employee.last_name}"
+            td = number_to_currency(ai.employee.monthly_basic, unit: "Php " )
+            td = number_to_currency(ai.employee.monthly_basic, unit: "Php " )
+            td
+                = link_to "Edit".html_safe, edit_account_info_path(ai, :payroll_record_id => params[:payroll_record_id]), class: 'button tiny success radius',"data-toggle"=> "tooltip", "data-placement" => "top", "title" => "Edit"
+                '&nbsp
+                = link_to "Delete".html_safe, account_info_path(ai), method: :delete, 'data-confirm' => 'Are you sure you want to delete this entry?', class: 'button tiny alert radius'," data-toggle"=> "tooltip", "data-placement" => "top", "title" => "Delete"
+          

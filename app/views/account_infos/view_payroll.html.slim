@@ -1,0 +1,95 @@
+- @total_monthly_basic = []
+- @total_semi_month_rate = []
+- @total_overtime = []
+- @total_late = []
+- @total_grosspay = []
+- @total_pagibig_wheld = []
+- @total_gross_pay_after_hdmf = []
+- @total_tax_wheld = []
+- @total_pagibig_loan = []
+- @total_hlsc = []
+- @total_advances = []
+- @total_company_loan = []
+- @total_deduction = []
+- @total_net_pay = []
+br
+.large-12.columns
+  h3.panel-title Payroll Record
+  hr
+	.col-sm-6
+  	= link_to "Print to PDF".html_safe, view_payroll_account_infos_path(:payroll_record_id => params[:payroll_record_id], :format => 'pdf'), class: 'button round tiny right', id:"generate-report", target: "_blank"
+.large-12.columns
+    table width="100%"
+      tr
+        td.small_font Names
+        td.small_font MONTHLY BASIC
+        td.small_font SEMI MONTH RATE
+        td.small_font OVERTIME ADJUSTMENT
+        td.small_font LATE
+        td.small_font GROSS PAY
+        td.small_font PAG-IBIG WITHHELD
+        td.small_font GROSS PAY AFTER HDMF
+        td.small_font TAX WITHHELD
+        td.small_font PAG-IBIG LOAN
+        td.small_font Housing Loan Special Case
+        td.small_font ADVANCES
+        td.small_font COMPANY LOAN
+        td.small_font TOTAL DEDUCTION
+        td.small_font NET PAY
+    	- @account_infos.each do |ai|
+    		tr
+    			td.small_font = "#{ai.employee.first_name} #{ai.employee.middle_initial} #{ai.employee.last_name}"
+    			- @total_monthly_basic << ai.employee.monthly_basic
+    			td.small_font = number_to_currency(ai.employee.monthly_basic, unit: "" )
+    			- @total_semi_month_rate << ai.employee.monthly_basic
+    			td.small_font = number_to_currency(ai.employee.monthly_basic, unit: "" )
+    			- @total_overtime << ai.overtime_pay
+    			td.small_font = number_to_currency(ai.overtime_pay, unit: "" )
+    			- @total_late << ai.late
+    			td.small_font = number_to_currency(ai.late, unit: "" )
+    			- @total_grosspay << ai.gross_pay
+    			td.small_font = number_to_currency(ai.gross_pay, unit: "" )
+    			- @total_pagibig_wheld << ai.pagibig_wheld
+    			td.small_font = number_to_currency(ai.pagibig_wheld, unit: "" )
+    			- @total_gross_pay_after_hdmf << ai.gross_pay_after_hdmf
+    			td.small_font = number_to_currency(ai.gross_pay_after_hdmf, unit: "" )
+    			- @total_tax_wheld << ai.tax_wheld
+    			td.small_font = number_to_currency(ai.tax_wheld, unit: "" )
+    			- @total_pagibig_loan << ai.pag_ibig_loan
+    			td.small_font = number_to_currency(ai.pag_ibig_loan, unit: "" )
+    			- @total_hlsc << ai.housing_loan_sp_case
+    			td.small_font = number_to_currency(ai.housing_loan_sp_case, unit: "" )
+    			- @total_advances << ai.advances
+    			td.small_font = number_to_currency(ai.advances, unit: "" )
+    			- @total_company_loan << ai.company_loan
+    			td.small_font = number_to_currency(ai.company_loan, unit: "" )
+    			- @total_deduction << ai.total_deduction
+    			td.small_font = number_to_currency(ai.total_deduction, unit: "" )
+
+    			- net_pay = ai.gross_pay - ai.total_deduction
+    			- @total_net_pay << net_pay
+    			td.small_font = number_to_currency(net_pay, unit: "" )
+    	tr
+    	  td.small_font TOTAL
+    	  td.small_font = number_to_currency(@total_monthly_basic.inject(:+), unit: "" )
+    	  td.small_font = number_to_currency(@total_semi_month_rate.inject(:+), unit: "" )
+    	  td.small_font = number_to_currency(@total_overtime.inject(:+), unit: "" )
+    	  td.small_font = number_to_currency(@total_late.inject(:+), unit: "" )
+    	  td.small_font = number_to_currency(@total_grosspay.inject(:+), unit: "" )
+    	  td.small_font = number_to_currency(@total_pagibig_wheld.inject(:+), unit: "" )
+    	  td.small_font = number_to_currency(@total_gross_pay_after_hdmf.inject(:+), unit: "" )
+    	  td.small_font = number_to_currency(@total_tax_wheld.inject(:+), unit: "" )
+    	  td.small_font = number_to_currency(@total_pagibig_loan.inject(:+), unit: "" )
+    	  td.small_font = number_to_currency(@total_hlsc.inject(:+), unit: "" )
+    	  td.small_font = number_to_currency(@total_advances.inject(:+), unit: "" )
+    	  td.small_font = number_to_currency(@total_company_loan.inject(:+), unit: "" )
+    	  td.small_font = number_to_currency(@total_deduction.inject(:+), unit: "" )
+    	  td.small_font = number_to_currency(@total_net_pay.inject(:+), unit: "" )
+
+
+css:
+  .small_font{
+    font-size: 11px;
+  }
+
+

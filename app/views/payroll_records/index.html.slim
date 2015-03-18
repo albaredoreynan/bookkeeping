@@ -1,0 +1,32 @@
+br
+.large-12.columns
+  h3.panel-title Payroll Period
+  hr
+.large-12.columns
+  br
+  .large-12.columns
+    .col-sm-6
+      h4 
+    .col-sm-6
+      = link_to 'Create Period Date', new_payroll_record_path, class: 'button round right tiny'
+  br
+  br
+  br
+  .large-12.columns
+    table width="100%" role="grid"
+      thead
+        tr
+          th Period Date Start
+          th Period Date End
+          th Action
+      tbody
+          - @payroll_records.each do |payroll_record|
+            tr
+              td = payroll_record.payroll_date_start.nil? ? "" : payroll_record.payroll_date_start.strftime('%b %d, %Y')
+              td = payroll_record.payroll_date_end.nil? ? "" : payroll_record.payroll_date_end.strftime('%b %d, %Y')
+              td
+                = link_to "Edit".html_safe, edit_payroll_record_path(payroll_record), class: 'button tiny success radius',"data-toggle"=> "tooltip", "data-placement" => "top", "title" => "Edit"
+                '&nbsp
+                = link_to "Delete".html_safe, payroll_record_path(payroll_record), method: :delete, 'data-confirm' => 'Are you sure you want to delete this entry?', class: 'button tiny alert radius'," data-toggle"=> "tooltip", "data-placement" => "top", "title" => "Delete"
+                '&nbsp
+                = link_to "Manage Payroll".html_safe, account_infos_path(:payroll_record_id => payroll_record), class: 'button tiny info radius',"data-toggle"=> "tooltip", "data-placement" => "top", "title" => "Manage Payroll"
